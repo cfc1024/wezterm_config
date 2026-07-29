@@ -31,6 +31,13 @@ local mouse_bindings = {
         mods = alt_key,
         action = scroll.fast_scroll(1, 0.5),
     },
+    -- middle click paste, keep working in zellij
+    {
+        event = { Down = { streak = 1, button = 'Middle' } },
+        mods = 'NONE',
+        action = act.PasteFrom 'PrimarySelection',
+        mouse_reporting = true,
+    },
 }
 
 local keys = {
@@ -44,35 +51,32 @@ local keys = {
                 timeout_milliseconds = 10000,
             }
     },
-    { key = 'p',      mods = ctrl_shift_key,        action = act.ActivateCommandPalette, },
+    { key = 'p',      mods = ctrl_shift_key, action = act.ActivateCommandPalette, },
 
     -- copy and paste
-    { key = 'c',      mods = ctrl_shift_key,        action = act.CopyTo('Clipboard') },
-    { key = 'v',      mods = ctrl_shift_key,        action = act.PasteFrom('Clipboard') },
+    { key = 'c',      mods = ctrl_shift_key, action = act.CopyTo('Clipboard') },
+    { key = 'v',      mods = ctrl_shift_key, action = act.PasteFrom('Clipboard') },
 
     -- linux copy and paste
-    { key = 'Insert', mods = ctrl_key,              action = act.CopyTo('Clipboard') },
-    { key = 'Insert', mods = 'SHIFT',               action = act.PasteFrom('Clipboard') },
+    { key = 'Insert', mods = ctrl_key,       action = act.CopyTo('Clipboard') },
+    { key = 'Insert', mods = 'SHIFT',        action = act.PasteFrom('Clipboard') },
 
 
     -- clear
-    { key = 'l',      mods = ctrl_key,              action = act.ClearScrollback('ScrollbackAndViewport') },
+    { key = 'l',      mods = ctrl_key,       action = act.ClearScrollback('ScrollbackAndViewport') },
 
     -- tab
-    { key = 'Tab',    mods = ctrl_key,              action = act.ActivateTabRelative(1) },
-    { key = 'Tab',    mods = ctrl_shift_key,        action = act.ActivateTabRelative(-1) },
+    { key = 'Tab',    mods = ctrl_key,       action = act.ActivateTabRelative(1) },
+    { key = 'Tab',    mods = ctrl_shift_key, action = act.ActivateTabRelative(-1) },
 
     -- font
-    { key = '=',      mods = ctrl_key,              action = act.IncreaseFontSize },
-    { key = '-',      mods = ctrl_key,              action = act.DecreaseFontSize },
-    { key = '0',      mods = ctrl_key,              action = act.ResetFontSize },
+    { key = '=',      mods = ctrl_key,       action = act.IncreaseFontSize },
+    { key = '-',      mods = ctrl_key,       action = act.DecreaseFontSize },
+    { key = '0',      mods = ctrl_key,       action = act.ResetFontSize },
 
     -- -- Tab 左右移动
-    { key = '[',      mods = ctrl_key,              action = act.ActivateTabRelative(-1) },         -- tab左移
-    { key = ']',      mods = ctrl_key,              action = act.ActivateTabRelative(1) },          -- tab右移
-
-    -- debug mode
-    { key = 'F12',    action = act.ShowDebugOverlay },
+    { key = '[',      mods = ctrl_key,       action = act.ActivateTabRelative(-1) }, -- tab左移
+    { key = ']',      mods = ctrl_key,       action = act.ActivateTabRelative(1) },  -- tab右移
 
     -- reset
     {
@@ -82,6 +86,8 @@ local keys = {
             act.SendString 'reset\n',
         }
     },
+    -- debug mode
+    { key = 'F12', action = act.ShowDebugOverlay },
 }
 
 local key_tables = {
